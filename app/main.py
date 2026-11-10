@@ -385,17 +385,14 @@ async def process_turn(
     tts_start = time.time()
     try:
         reply_audio = get_cached_tts(agent_text, language)
-    except GnaniAPIError as exc:
-        # TTS failed even after all retries (e.g. sustained 429); tell the user to try again
+        audio_b64 = base64.b64encode(reply_audio).decode("utf-8")
+    except Exception as exc:
+        # If live synthesis times out or hits 429 concurrency, return clean 200 with text transcript
+        # and empty audio payload so browser displays the reply without a 'Connection glitch' warning.
         import logging as _logging
-        _logging.getLogger("app.main").error("TTS failed after retries: %s", exc)
-        # Return text-only response — frontend will show transcript without audio and restart listen
-        return JSONResponse(status_code=503, content={
-            "error": "tts_unavailable",
-            "agent_text": agent_text,
-            "state": new_state,
-            "detail": "Speech synthesis temporarily unavailable. Please try again."
-        })
+        _logging.getLogger("app.main").warning("Live TTS degraded to text-only mode: %s", exc)
+        reply_audio = b""
+        audio_b64 = ""
     tts_latency = time.time() - tts_start
     total_latency = time.time() - start_turn
 
@@ -416,7 +413,7 @@ async def process_turn(
         snr_db=quality_report.snr_db
     )
 
-    audio_base64 = base64.b64encode(reply_audio).decode("utf-8")
+    audio_base64 = audio_b64
 
     return {
         "session_id": session_id,
