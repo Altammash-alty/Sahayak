@@ -1,0 +1,51 @@
+# Python & caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+dist/
+.pytest_cache/
+.coverage
+htmlcov/
+*.log
+
+# Sensitive environment files & secrets
+.env
+*.env
+.env.*
+!.env.example
+
+# Local SQLite databases
+sqlite3.db
+*.db
+sahayak.db
+
+# Audio artifacts & voice recordings (Personal Data)
+audio_cache/
+temp_audio/
+debug/
+eval/real/
+eval/real_recordings/
+
+# Agent internals & unshared documentation
+.agents/
+.agent/
+internal_docs/
+docs/
+
+# Strict documentation restriction: only README.md is allowed
+*.md
+!README.md
+eval/*.md
+tests/*.md
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

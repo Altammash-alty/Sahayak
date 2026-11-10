@@ -1,0 +1,64 @@
+{
+  "scheme_id": "pm_kisan",
+  "name": "Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)",
+  "source_urls": ["https://pmkisan.gov.in/"],
+  "verified_on": "2026-11-07",
+  "verified": true,
+  "slots": [
+    {
+      "name": "has_cultivable_land",
+      "type": "boolean",
+      "description": "Does the farmer or family own cultivable land in their name?"
+    },
+    {
+      "name": "is_institutional_landholder",
+      "type": "boolean",
+      "description": "Is the land held in the name of an institution, trust or company?"
+    },
+    {
+      "name": "is_govt_employee_or_pensioner",
+      "type": "boolean",
+      "description": "Is any family member a serving/retired government officer or receiving monthly pension of ₹10,000 or more (excluding Group D / Class IV)?"
+    },
+    {
+      "name": "paid_income_tax",
+      "type": "boolean",
+      "description": "Did anyone in the family pay income tax in the last assessment year?"
+    }
+  ],
+  "rules": [
+    {
+      "condition": "has_cultivable_land == false",
+      "verdict": "NOT_ELIGIBLE",
+      "reason": "PM-KISAN requires ownership of cultivable agricultural land in the applicant's or family's name."
+    },
+    {
+      "condition": "is_institutional_landholder == true",
+      "verdict": "NOT_ELIGIBLE",
+      "reason": "Institutional landholders, trusts and corporations are excluded from PM-KISAN benefits."
+    },
+    {
+      "condition": "is_govt_employee_or_pensioner == true",
+      "verdict": "NOT_ELIGIBLE",
+      "reason": "Serving/retired government employees and pensioners with pension ≥ ₹10,000/month (non-Group D) are excluded."
+    },
+    {
+      "condition": "paid_income_tax == true",
+      "verdict": "NOT_ELIGIBLE",
+      "reason": "Individuals or family members who paid income tax in the last assessment year are excluded."
+    },
+    {
+      "condition": "has_cultivable_land == true and is_institutional_landholder == false and is_govt_employee_or_pensioner == false and paid_income_tax == false",
+      "verdict": "LIKELY_ELIGIBLE",
+      "reason": "You meet all basic eligibility requirements for PM-KISAN as a small/marginal individual landholder farmer."
+    }
+  ],
+  "documents": [
+    "Aadhaar Card linked with active mobile number",
+    "Land Ownership Proof (Khasra-Khatauni / RoR / Patta)",
+    "Active Bank Account Passbook with Aadhaar-NPCI DBT seeding"
+  ],
+  "next_steps": "Apply online at pmkisan.gov.in under 'New Farmer Registration' or visit your nearest Common Service Centre (CSC) or local Agriculture Office.",
+  "helpline": "PM-KISAN Helpline: 155261 or 011-24300606"
+}
+

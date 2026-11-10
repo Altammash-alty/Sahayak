@@ -1,0 +1,120 @@
+[
+  {
+    "id": "en_kisan_01",
+    "language": "en-IN",
+    "scheme": "pm_kisan",
+    "expected_verdict": "LIKELY_ELIGIBLE",
+    "turns": [
+      "I want to check PM Kisan eligibility",
+      "Yes I own cultivable agricultural land",
+      "No it is not institutional land",
+      "No government employees in our family",
+      "No we do not pay income tax"
+    ]
+  },
+  {
+    "id": "en_kisan_02",
+    "language": "en-IN",
+    "scheme": "pm_kisan",
+    "expected_verdict": "NOT_ELIGIBLE",
+    "turns": [
+      "PM Kisan scheme",
+      "No I don't own any agricultural land"
+    ]
+  },
+  {
+    "id": "en_kisan_03",
+    "language": "en-IN",
+    "scheme": "pm_kisan",
+    "expected_verdict": "NOT_ELIGIBLE",
+    "turns": [
+      "Kisan Samman Nidhi",
+      "Yes we have land",
+      "No not institutional",
+      "No government job",
+      "Yes I paid income tax this year"
+    ]
+  },
+  {
+    "id": "en_ration_01",
+    "language": "en-IN",
+    "scheme": "ration_card",
+    "expected_verdict": "LIKELY_ELIGIBLE",
+    "turns": [
+      "Apply for ration card",
+      "No we don't have a ration card",
+      "Around 60000 rupees per year",
+      "No we do not have a car",
+      "No government job"
+    ]
+  },
+  {
+    "id": "en_ration_02",
+    "language": "en-IN",
+    "scheme": "ration_card",
+    "expected_verdict": "NOT_ELIGIBLE",
+    "turns": [
+      "Ration card",
+      "Yes we already have an active ration card"
+    ]
+  },
+  {
+    "id": "en_ration_03",
+    "language": "en-IN",
+    "scheme": "ration_card",
+    "expected_verdict": "NOT_ELIGIBLE",
+    "turns": [
+      "Ration card",
+      "No ration card currently",
+      "80000 rupees",
+      "Yes we have a car",
+      "No"
+    ]
+  },
+  {
+    "id": "en_pension_01",
+    "language": "en-IN",
+    "scheme": "nsap_pension",
+    "expected_verdict": "LIKELY_ELIGIBLE",
+    "turns": [
+      "Old age pension scheme",
+      "I am 68 years old",
+      "Yes we are in BPL category",
+      "No I receive no other pension"
+    ]
+  },
+  {
+    "id": "en_pension_02",
+    "language": "en-IN",
+    "scheme": "nsap_pension",
+    "expected_verdict": "NOT_ELIGIBLE",
+    "turns": [
+      "Old age pension",
+      "I am 55 years old"
+    ]
+  },
+  {
+    "id": "en_pension_03",
+    "language": "en-IN",
+    "scheme": "nsap_pension",
+    "expected_verdict": "NOT_ELIGIBLE",
+    "turns": [
+      "Elderly pension",
+      "I am 62 years old",
+      "No not in BPL list"
+    ]
+  },
+  {
+    "id": "en_pension_04",
+    "language": "en-IN",
+    "scheme": "nsap_pension",
+    "expected_verdict": "LIKELY_ELIGIBLE",
+    "turns": [
+      "Pension scheme",
+      "60 years old",
+      "Yes below poverty line",
+      "No"
+    ]
+  }
+]
+

@@ -1,0 +1,66 @@
+{
+  "scheme_id": "ration_card",
+  "name": "National Food Security Act (NFSA) Ration Card",
+  "source_urls": ["https://nfsa.gov.in/"],
+  "verified_on": "2026-11-07",
+  "verified": true,
+  "slots": [
+    {
+      "name": "has_existing_ration_card",
+      "type": "boolean",
+      "description": "Does the family already possess an active ration card?"
+    },
+    {
+      "name": "annual_family_income",
+      "type": "number",
+      "description": "Total annual household income in Indian Rupees."
+    },
+    {
+      "name": "owns_four_wheeler",
+      "type": "boolean",
+      "description": "Does anyone in the household own a four-wheeler motor vehicle (excluding tractor)?"
+    },
+    {
+      "name": "is_regular_govt_employee",
+      "type": "boolean",
+      "description": "Is any household member a regular government employee?"
+    }
+  ],
+  "rules": [
+    {
+      "condition": "has_existing_ration_card == true",
+      "verdict": "NOT_ELIGIBLE",
+      "reason": "A family can only hold one NFSA ration card. If you already hold one, you can apply only for modification or addition of family members."
+    },
+    {
+      "condition": "owns_four_wheeler == true",
+      "verdict": "NOT_ELIGIBLE",
+      "reason": "Ownership of a four-wheeler motor vehicle disqualifies the household from subsidised NFSA ration card categories."
+    },
+    {
+      "condition": "is_regular_govt_employee == true",
+      "verdict": "NOT_ELIGIBLE",
+      "reason": "Families with regular government employees are not eligible under standard priority household criteria."
+    },
+    {
+      "condition": "annual_family_income > 150000",
+      "verdict": "NOT_ELIGIBLE",
+      "reason": "Annual family income exceeds the standard NFSA poverty threshold limit of ₹1,50,000 per year."
+    },
+    {
+      "condition": "has_existing_ration_card == false and owns_four_wheeler == false and is_regular_govt_employee == false and annual_family_income <= 150000",
+      "verdict": "LIKELY_ELIGIBLE",
+      "reason": "Your family meets the income criteria and has no disqualifying assets for NFSA Priority Household ration cards."
+    }
+  ],
+  "documents": [
+    "Aadhaar cards of all family members",
+    "Income Certificate / BPL Certificate issued by competent local authority",
+    "Proof of Residence (Electricity bill / Water bill / Voter ID)",
+    "Passport-size photo of the female head of the family",
+    "Bank account passbook of female head of family"
+  ],
+  "next_steps": "Submit an online application via your State Food and Civil Supplies portal or visit the local Block Development Office (BDO) / Tehsil Food Supply Inspector.",
+  "helpline": "National Food Consumer Helpline: 1967"
+}
+

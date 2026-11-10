@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  sahayak:
+    build: .
+    container_name: sahayak-voice-agent
+    ports:
+      - "${PORT:-8000}:8000"
+    environment:
+      - GNANI_API_KEY=${GNANI_API_KEY}
+      - PORT=8000
+      - LOG_LEVEL=INFO
+    volumes:
+      - sahayak_data:/app/data
+      - sahayak_cache:/app/audio_cache
+    restart: unless-stopped
+
+volumes:
+  sahayak_data:
+  sahayak_cache:

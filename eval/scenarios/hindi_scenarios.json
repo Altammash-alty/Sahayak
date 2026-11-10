@@ -1,0 +1,119 @@
+[
+  {
+    "id": "hi_kisan_01",
+    "language": "hi-IN",
+    "scheme": "pm_kisan",
+    "expected_verdict": "LIKELY_ELIGIBLE",
+    "turns": [
+      "मुझे पीएम किसान योजना के बारे में जानकारी चाहिए",
+      "हाँ मेरे पास खेती की ज़मीन है",
+      "नहीं यह संस्था या कंपनी की नहीं है",
+      "नहीं परिवार में कोई सरकारी नौकरी में नहीं है",
+      "नहीं हम इनकम टैक्स नहीं भरते"
+    ]
+  },
+  {
+    "id": "hi_kisan_02",
+    "language": "hi-IN",
+    "scheme": "pm_kisan",
+    "expected_verdict": "NOT_ELIGIBLE",
+    "turns": [
+      "पीएम किसान योजना",
+      "नहीं मेरे पास कोई ज़मीन नहीं है"
+    ]
+  },
+  {
+    "id": "hi_kisan_03",
+    "language": "hi-IN",
+    "scheme": "pm_kisan",
+    "expected_verdict": "NOT_ELIGIBLE",
+    "turns": [
+      "किसान सम्मान निधि योजना",
+      "हाँ ज़मीन है",
+      "नहीं निजी है",
+      "हाँ मेरे पिता जी सरकारी स्कूल में शिक्षक हैं"
+    ]
+  },
+  {
+    "id": "hi_ration_01",
+    "language": "hi-IN",
+    "scheme": "ration_card",
+    "expected_verdict": "LIKELY_ELIGIBLE",
+    "turns": [
+      "मुझे राशन कार्ड बनवाना है",
+      "नहीं हमारे पास कोई राशन कार्ड नहीं है",
+      "लगभग 75000 रुपये",
+      "नहीं कार नहीं है",
+      "नहीं कोई सरकारी नौकरी नहीं है"
+    ]
+  },
+  {
+    "id": "hi_ration_02",
+    "language": "hi-IN",
+    "scheme": "ration_card",
+    "expected_verdict": "NOT_ELIGIBLE",
+    "turns": [
+      "राशन कार्ड",
+      "हाँ हमारे पास पहले से बना हुआ राशन कार्ड है"
+    ]
+  },
+  {
+    "id": "hi_ration_03",
+    "language": "hi-IN",
+    "scheme": "ration_card",
+    "expected_verdict": "NOT_ELIGIBLE",
+    "turns": [
+      "नया राशन कार्ड",
+      "नहीं राशन कार्ड नहीं है",
+      "हमारी आमदनी 3 लाख रुपये है",
+      "नहीं कार नहीं है",
+      "नहीं सरकारी नौकरी नहीं है"
+    ]
+  },
+  {
+    "id": "hi_pension_01",
+    "language": "hi-IN",
+    "scheme": "nsap_pension",
+    "expected_verdict": "LIKELY_ELIGIBLE",
+    "turns": [
+      "वृद्धावस्था पेंशन योजना",
+      "मेरी उम्र 65 वर्ष है",
+      "हाँ हम बीपीएल परिवार से हैं",
+      "नहीं कोई अन्य पेंशन नहीं मिलती"
+    ]
+  },
+  {
+    "id": "hi_pension_02",
+    "language": "hi-IN",
+    "scheme": "nsap_pension",
+    "expected_verdict": "NOT_ELIGIBLE",
+    "turns": [
+      "बुढ़ापा पेंशन",
+      "मेरी उम्र 52 वर्ष है"
+    ]
+  },
+  {
+    "id": "hi_pension_03",
+    "language": "hi-IN",
+    "scheme": "nsap_pension",
+    "expected_verdict": "NOT_ELIGIBLE",
+    "turns": [
+      "पेंशन योजना",
+      "मेरी आयु 70 साल है",
+      "नहीं बीपीएल नहीं है"
+    ]
+  },
+  {
+    "id": "hi_pension_04",
+    "language": "hi-IN",
+    "scheme": "nsap_pension",
+    "expected_verdict": "LIKELY_ELIGIBLE",
+    "turns": [
+      "पेंशन",
+      "मेरी उम्र 60 साल है",
+      "हाँ गरीबी रेखा में हैं",
+      "नहीं कोई पेंशन नहीं मिलती"
+    ]
+  }
+]
+

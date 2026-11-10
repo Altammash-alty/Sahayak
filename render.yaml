@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: sahayak-voice-agent
+    env: docker
+    plan: free
+    region: oregon
+    dockerfilePath: Dockerfile
+    envVars:
+      - key: GNANI_API_KEY
+        sync: false
+      - key: PORT
+        value: 8000
+      - key: LOG_LEVEL
+        value: INFO

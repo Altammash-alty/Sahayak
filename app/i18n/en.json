@@ -1,0 +1,61 @@
+{
+  "greeting": "Hello! I am Sahayak, your voice assistant. Which government scheme would you like to check? For example, PM-KISAN, Ration Card, or Old Age Pension?",
+  "unclear": "I am sorry, I could not hear you clearly. Could you please repeat that?",
+  "handoff": "I apologize, but we are unable to process your voice clearly. Please visit your nearest Common Service Centre (CSC) or call the official government helpline.",
+  "scheme_not_recognized": "Please let me know which scheme you wish to check: PM-KISAN, Ration Card, or Old Age Pension?",
+  "invalid_value": "I could not understand that value clearly. Could you please specify again?",
+  "reasks": {
+    "TOO_QUIET": [
+      "Please speak a little louder or hold your phone closer.",
+      "Your voice was very soft. Could you please speak a bit louder?",
+      "I had trouble hearing you. Please speak up slightly."
+    ],
+    "TOO_NOISY": [
+      "There seems to be background noise. Could you please move somewhere quieter?",
+      "Too noisy around you. Please try speaking from a quiet spot.",
+      "Background sounds are interfering. Please repeat from a calmer room."
+    ],
+    "NO_SPEECH": [
+      "I did not hear any voice. Please speak your answer again.",
+      "Are you there? Please speak clearly into the microphone.",
+      "No sound was detected. Please unmute or speak closer."
+    ],
+    "TOO_SHORT": [
+      "That was too brief. Please answer in a complete sentence.",
+      "The audio cut off too fast. Could you repeat that completely?"
+    ],
+    "CLIPPED": [
+      "The audio was too loud and distorted. Please speak in a normal conversational tone.",
+      "The sound clipped. Please move slightly further from the microphone and repeat."
+    ],
+    "EMPTY_TRANSCRIPT": [
+      "I didn't quite catch that. Could you please say it again?",
+      "Pardon me, could you repeat that answer clearly?",
+      "I missed that. Please say it once more."
+    ]
+  },
+  "questions": {
+    "has_cultivable_land": "Do you or your family own cultivable agricultural land in your name?",
+    "is_institutional_landholder": "Is this agricultural land owned by an institution, trust, or company?",
+    "is_govt_employee_or_pensioner": "Is anyone in your family a government officer or receiving a monthly pension of 10,000 rupees or more?",
+    "paid_income_tax": "Did anyone in your family pay income tax in the last assessment year?",
+    "has_existing_ration_card": "Does your family already hold an active ration card?",
+    "annual_family_income": "What is your approximate total annual family income in rupees?",
+    "owns_four_wheeler": "Does anyone in your household own a four-wheeler car or light motor vehicle?",
+    "is_regular_govt_employee": "Is any member of your household a regular government employee?",
+    "age": "What is your age in completed years?",
+    "is_bpl": "Does your family belong to the Below Poverty Line (BPL) category?",
+    "receives_other_pension": "Are you currently receiving any other government pension?"
+  },
+  "verdicts": {
+    "LIKELY_ELIGIBLE": "Good news! Based on the details provided, you are likely eligible for this scheme.",
+    "NOT_ELIGIBLE": "Based on the information provided, you are likely not eligible for this scheme.",
+    "UNSURE": "We could not determine your definitive eligibility with the provided details."
+  },
+  "labels": {
+    "documents": "Required Documents:",
+    "next_steps": "Next Step:",
+    "helpline": "Official Helpline:"
+  },
+  "stop_commands": ["stop", "pause", "wait", "hold on", "cancel", "bye", "goodbye", "end call"]
+}

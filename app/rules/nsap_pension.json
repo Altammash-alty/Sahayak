@@ -1,0 +1,55 @@
+{
+  "scheme_id": "nsap_pension",
+  "name": "Indira Gandhi National Old Age Pension Scheme (IGNOAPS - NSAP)",
+  "source_urls": ["https://nsap.nic.in/"],
+  "verified_on": "2026-11-07",
+  "verified": true,
+  "slots": [
+    {
+      "name": "age",
+      "type": "number",
+      "description": "Age of the applicant in completed years."
+    },
+    {
+      "name": "is_bpl",
+      "type": "boolean",
+      "description": "Does the applicant belong to a Below Poverty Line (BPL) household according to official government criteria?"
+    },
+    {
+      "name": "receives_other_pension",
+      "type": "boolean",
+      "description": "Is the applicant receiving any other government pension above BPL limits?"
+    }
+  ],
+  "rules": [
+    {
+      "condition": "age < 60",
+      "verdict": "NOT_ELIGIBLE",
+      "reason": "Applicant must be at least 60 years of age to qualify for Indira Gandhi National Old Age Pension."
+    },
+    {
+      "condition": "is_bpl == false",
+      "verdict": "NOT_ELIGIBLE",
+      "reason": "Applicant must belong to an officially certified Below Poverty Line (BPL) household."
+    },
+    {
+      "condition": "receives_other_pension == true",
+      "verdict": "NOT_ELIGIBLE",
+      "reason": "Applicants receiving other substantial government retirement or social security pensions are excluded."
+    },
+    {
+      "condition": "age >= 60 and is_bpl == true and receives_other_pension == false",
+      "verdict": "LIKELY_ELIGIBLE",
+      "reason": "You satisfy both the age requirement (60+ years) and the BPL socioeconomic criteria under NSAP guidelines."
+    }
+  ],
+  "documents": [
+    "Age Proof Document (Aadhaar Card, Voter ID, or Birth Certificate)",
+    "BPL Card / BPL Survey Inclusion Certificate from Gram Panchayat",
+    "Bank Account / Post Office Savings Account Passbook",
+    "Recent Passport-size Photograph"
+  ],
+  "next_steps": "Submit the completed application form to your Gram Panchayat Secretary, Block Development Office (BDO), or the District Social Welfare Department.",
+  "helpline": "National Senior Citizens Helpline (Elder Line): 14567"
+}
+

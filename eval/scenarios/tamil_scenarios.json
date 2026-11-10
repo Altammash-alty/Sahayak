@@ -1,0 +1,119 @@
+[
+  {
+    "id": "ta_kisan_01",
+    "language": "ta-IN",
+    "scheme": "pm_kisan",
+    "expected_verdict": "LIKELY_ELIGIBLE",
+    "turns": [
+      "PM Kisan kisan",
+      "Yes",
+      "No",
+      "No",
+      "No"
+    ]
+  },
+  {
+    "id": "ta_kisan_02",
+    "language": "ta-IN",
+    "scheme": "pm_kisan",
+    "expected_verdict": "NOT_ELIGIBLE",
+    "turns": [
+      "kisan farmer",
+      "No"
+    ]
+  },
+  {
+    "id": "ta_kisan_03",
+    "language": "ta-IN",
+    "scheme": "pm_kisan",
+    "expected_verdict": "NOT_ELIGIBLE",
+    "turns": [
+      "PM Kisan",
+      "Yes",
+      "No",
+      "Yes"
+    ]
+  },
+  {
+    "id": "ta_ration_01",
+    "language": "ta-IN",
+    "scheme": "ration_card",
+    "expected_verdict": "LIKELY_ELIGIBLE",
+    "turns": [
+      "ration card",
+      "No",
+      "70000",
+      "No",
+      "No"
+    ]
+  },
+  {
+    "id": "ta_ration_02",
+    "language": "ta-IN",
+    "scheme": "ration_card",
+    "expected_verdict": "NOT_ELIGIBLE",
+    "turns": [
+      "ration card",
+      "Yes"
+    ]
+  },
+  {
+    "id": "ta_ration_03",
+    "language": "ta-IN",
+    "scheme": "ration_card",
+    "expected_verdict": "NOT_ELIGIBLE",
+    "turns": [
+      "ration card",
+      "No",
+      "250000",
+      "No",
+      "No"
+    ]
+  },
+  {
+    "id": "ta_pension_01",
+    "language": "ta-IN",
+    "scheme": "nsap_pension",
+    "expected_verdict": "LIKELY_ELIGIBLE",
+    "turns": [
+      "pension elderly",
+      "65",
+      "Yes",
+      "No"
+    ]
+  },
+  {
+    "id": "ta_pension_02",
+    "language": "ta-IN",
+    "scheme": "nsap_pension",
+    "expected_verdict": "NOT_ELIGIBLE",
+    "turns": [
+      "pension",
+      "55"
+    ]
+  },
+  {
+    "id": "ta_pension_03",
+    "language": "ta-IN",
+    "scheme": "nsap_pension",
+    "expected_verdict": "NOT_ELIGIBLE",
+    "turns": [
+      "pension",
+      "68",
+      "No"
+    ]
+  },
+  {
+    "id": "ta_pension_04",
+    "language": "ta-IN",
+    "scheme": "nsap_pension",
+    "expected_verdict": "LIKELY_ELIGIBLE",
+    "turns": [
+      "senior citizen pension",
+      "62",
+      "Yes",
+      "No"
+    ]
+  }
+]
+

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sahayak (सहायक) — Sovereign Voice Scheme Navigator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #065f46;
+      --primary-hover: #047857;
+      --accent: #d97706;
+      --bg-gradient: linear-gradient(135deg, #f0fdf4 0%, #f8fafc 50%, #eff6ff 100%);
+    }
+
+    body {
+      background: var(--bg-gradient);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans', sans-serif;
+    }
+
+    /* Animated Voice Orb States */
+    .orb-idle {
+      background: radial-gradient(circle, #059669 0%, #065f46 70%);
+      box-shadow: 0 10px 25px -5px rgba(5, 150, 105, 0.4);
+    }
+
+    .orb-listening {
+      background: radial-gradient(circle, #ef4444 0%, #b91c1c 70%);
+      box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+      animation: pulse-ring 1.4s infinite cubic-bezier(0.45, 0, 0.55, 1);
+    }
+
+    .orb-thinking {
+      background: radial-gradient(circle, #f59e0b 0%, #d97706 70%);
+      animation: spin-pulse 2s infinite linear;
+      box-shadow: 0 10px 25px -5px rgba(217, 119, 6, 0.5);
+    }
+
+    .orb-speaking {
+      background: radial-gradient(circle, #3b82f6 0%, #1d4ed8 70%);
+      animation: wave-pulse 1.2s infinite ease-in-out;
+      box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.5);
+    }
+
+    @keyframes pulse-ring {
+      0% { transform: scale(0.97); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+      70% { transform: scale(1.06); box-shadow: 0 0 0 22px rgba(239, 68, 68, 0); }
+      100% { transform: scale(0.97); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+
+    @keyframes wave-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes spin-pulse {
+      0% { transform: rotate(0deg) scale(0.98); }
+      50% { transform: rotate(180deg) scale(1.02); }
+      100% { transform: rotate(360deg) scale(0.98); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .orb-listening, .orb-thinking, .orb-speaking {
+        animation: none !important;
+      }
+    }
+
+    .text-lg-mode { font-size: 1.15rem !important; }
+    .text-lg-mode p { font-size: 1.15rem !important; }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col text-slate-800 antialiased selection:bg-emerald-200">
+
+  <!-- TOP APP BAR -->
+  <header class="w-full bg-emerald-900 text-white shadow-md sticky top-0 z-50 px-4 sm:px-8 py-3.5 flex justify-between items-center">
+    <div class="flex items-center space-x-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-400 to-amber-200 text-emerald-950 flex items-center justify-center font-black text-xl shadow-inner">
+        स
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h1 class="text-base sm:text-lg font-bold tracking-tight">Sahayak (सहायक)</h1>
+          <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-800 text-emerald-200 border border-emerald-700">Sovereign AI</span>
+        </div>
+        <p class="text-[11px] text-emerald-300">Voice-First Indian Government Welfare Navigator</p>
+      </div>
+    </div>
+
+    <!-- Center/Right App Bar Elements -->
+    <div class="flex items-center space-x-2 sm:space-x-4">
+      <!-- Call Active Timer -->
+      <div id="callTimerBadge" class="hidden items-center gap-1.5 px-3 py-1 bg-rose-500/20 text-rose-200 border border-rose-400/40 rounded-full text-xs font-semibold">
+        <span class="w-2 h-2 rounded-full bg-rose-400 animate-ping"></span>
+        <span id="callTimer">00:00</span>
+      </div>
+
+      <!-- Language Selector Chips in Native Script (min 56px touch target friendly) -->
+      <div class="flex bg-emerald-950/60 p-1 rounded-xl border border-emerald-800/80" role="radiogroup" aria-label="Select Language">
+        <button class="lang-chip min-h-[44px] px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-emerald-600 text-white shadow-sm" data-lang="hi-IN">
+          हिन्दी
+        </button>
+        <button class="lang-chip min-h-[44px] px-3.5 py-1.5 rounded-lg text-xs font-bold transition text-emerald-200 hover:text-white" data-lang="en-IN">
+          English
+        </button>
+        <button class="lang-chip min-h-[44px] px-3.5 py-1.5 rounded-lg text-xs font-bold transition text-emerald-200 hover:text-white" data-lang="ta-IN">
+          தமிழ்
+        </button>
+      </div>
+
+      <!-- Accessibility Text-Size Toggle -->
+      <button id="textSizeBtn" class="min-h-[44px] min-w-[44px] px-2.5 py-1.5 bg-emerald-800 hover:bg-emerald-700 rounded-xl text-xs font-bold transition flex items-center justify-center border border-emerald-700" title="Toggle larger text size" aria-label="Toggle text size">
+        <i class="fa-solid fa-font"></i> A±
+      </button>
+
+      <!-- Dashboard Button -->
+      <a href="/dashboard" class="min-h-[44px] px-3.5 py-1.5 bg-emerald-800 hover:bg-emerald-700 text-white rounded-xl text-xs font-medium transition flex items-center gap-1.5 border border-emerald-700 shadow-sm" aria-label="View Telemetry Dashboard">
+        <i class="fa-solid fa-chart-pie"></i> <span class="hidden md:inline">Dashboard</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- 3-STEP "HOW IT WORKS" STRIP -->
+  <section class="w-full bg-emerald-800/10 border-b border-emerald-900/10 py-2.5 px-4">
+    <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between text-xs text-slate-600 gap-3">
+      <div class="flex items-center gap-2">
+        <span class="w-5 h-5 rounded-full bg-emerald-700 text-white flex items-center justify-center text-[10px] font-bold">1</span>
+        <span class="font-medium text-slate-700">Speak naturally</span> (बोलकर बताएं)
+      </div>
+      <i class="fa-solid fa-arrow-right text-[10px] text-slate-400 hidden sm:inline"></i>
+      <div class="flex items-center gap-2">
+        <span class="w-5 h-5 rounded-full bg-emerald-700 text-white flex items-center justify-center text-[10px] font-bold">2</span>
+        <span class="font-medium text-slate-700">Deterministic check</span> (सटीक सरकारी नियम)
+      </div>
+      <i class="fa-solid fa-arrow-right text-[10px] text-slate-400 hidden sm:inline"></i>
+      <div class="flex items-center gap-2">
+        <span class="w-5 h-5 rounded-full bg-emerald-700 text-white flex items-center justify-center text-[10px] font-bold">3</span>
+        <span class="font-medium text-slate-700">Documents & Next Steps</span> (दस्तावेज़ व आवेदन)
+      </div>
+      <div class="hidden lg:flex items-center gap-1.5 text-emerald-800 font-semibold text-[11px]">
+        <i class="fa-solid fa-shield-halved"></i> 100% Deterministic (Zero Hallucinations)
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN WORKSPACE: TWO-COLUMN DESKTOP / SINGLE-COLUMN MOBILE -->
+  <main class="max-w-6xl w-full mx-auto p-4 sm:p-6 flex-grow grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+    
+    <!-- LEFT PANEL: VOICE INTERFACE & SCHEMES (col-span-5) -->
+    <div class="lg:col-span-5 flex flex-col space-y-5">
+      
+      <!-- Voice Controller Card -->
+      <div class="bg-white/80 backdrop-blur-md border border-slate-200/80 rounded-2xl shadow-sm p-6 flex flex-col items-center text-center">
+        
+        <!-- Live Call State Badge -->
+        <div class="flex items-center justify-between w-full mb-4">
+          <span id="callStateBadge" class="px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-slate-100 text-slate-600 border border-slate-200 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-slate-400"></span> IDLE
+          </span>
+          <span class="text-[11px] font-mono text-slate-400 flex items-center gap-1">
+            <i class="fa-solid fa-bolt text-amber-500"></i> Barge-In Ready
+          </span>
+        </div>
+
+        <!-- Animated Voice Orb & PTT Button (80px touch target) -->
+        <div class="relative my-2 flex items-center justify-center">
+          <button id="recordBtn" class="w-24 h-24 rounded-full orb-idle text-white flex items-center justify-center shadow-lg transition-all duration-300 focus:outline-none cursor-pointer" aria-label="Toggle Microphone">
+            <i id="recordIcon" class="fa-solid fa-microphone text-3xl"></i>
+          </button>
+        </div>
+
+        <!-- Status Caption -->
+        <h3 id="recordStatus" class="mt-3 text-sm font-bold text-slate-800">Tap to Speak or Start Call</h3>
+        <p id="recordSubStatus" class="text-xs text-slate-500 mt-0.5">Continuous hands-free conversation with interrupt capability</p>
+
+        <!-- Live Audio Meter -->
+        <div class="w-full max-w-xs mt-4 flex items-center gap-2">
+          <i class="fa-solid fa-volume-high text-xs text-slate-400"></i>
+          <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden border border-slate-200">
+            <div id="audioMeterBar" class="bg-emerald-500 h-full w-0 transition-all duration-75"></div>
+          </div>
+          <span id="dbValue" class="text-[10px] text-slate-400 font-mono w-10 text-right">-∞ dB</span>
+        </div>
+
+        <!-- Speak Closer Warning -->
+        <div id="audioWarning" class="hidden mt-3 w-full px-3 py-2 bg-amber-50 border border-amber-300 text-amber-900 rounded-xl text-xs flex items-center gap-2" role="alert">
+          <i class="fa-solid fa-triangle-exclamation text-amber-600"></i>
+          <span id="audioWarningText">आवाज़ धीमी है। कृपया माइक थोड़ा पास लाकर बोलें।</span>
+        </div>
+
+        <!-- Primary Call Actions (Min 56px touch target height) -->
+        <div class="grid grid-cols-2 gap-3 w-full mt-5">
+          <button id="startCallBtn" class="min-h-[56px] px-4 py-3 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl font-bold text-xs shadow-md transition flex items-center justify-center gap-2 cursor-pointer">
+            <i class="fa-solid fa-phone"></i> Start Hands-Free Call
+          </button>
+          <button id="endCallBtn" class="hidden min-h-[56px] px-4 py-3 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-bold text-xs shadow-md transition items-center justify-center gap-2 cursor-pointer">
+            <i class="fa-solid fa-phone-slash"></i> End Call Immediately
+          </button>
+          <button id="replayBtn" class="min-h-[56px] px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold text-xs border border-slate-300 transition flex items-center justify-center gap-2 cursor-pointer">
+            <i class="fa-solid fa-rotate-left"></i> Replay Answer
+          </button>
+        </div>
+
+        <!-- Demo Mode Button -->
+        <button id="demoModeBtn" class="w-full mt-3 min-h-[46px] px-4 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-800 border border-indigo-200 rounded-xl font-bold text-xs transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-wand-magic-sparkles text-indigo-600"></i> Run Scripted Demo Walkthrough
+        </button>
+
+      </div>
+
+      <!-- Scheme Cards Section -->
+      <div class="bg-white/80 backdrop-blur-md border border-slate-200/80 rounded-2xl shadow-sm p-4">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3 flex items-center justify-between">
+          <span>Supported Welfare Schemes</span>
+          <span class="text-[10px] text-emerald-700 font-semibold">Codified from Official Portals</span>
+        </h4>
+
+        <div class="space-y-2.5">
+          <!-- PM-KISAN Card -->
+          <div id="card_pm_kisan" class="scheme-card p-3 rounded-xl border border-slate-200 transition bg-white flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center text-base flex-shrink-0">
+              <i class="fa-solid fa-wheat-awn"></i>
+            </div>
+            <div class="flex-grow">
+              <div class="flex items-center justify-between">
+                <p class="text-xs font-bold text-slate-800">PM-KISAN Samman Nidhi</p>
+                <span class="text-[10px] font-bold text-emerald-700">₹6,000 / year</span>
+              </div>
+              <p class="text-[11px] text-slate-500">For small & marginal landholder farmer families</p>
+            </div>
+          </div>
+
+          <!-- NFSA Ration Card -->
+          <div id="card_ration_card" class="scheme-card p-3 rounded-xl border border-slate-200 transition bg-white flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center text-base flex-shrink-0">
+              <i class="fa-solid fa-bowl-rice"></i>
+            </div>
+            <div class="flex-grow">
+              <div class="flex items-center justify-between">
+                <p class="text-xs font-bold text-slate-800">NFSA Ration Card</p>
+                <span class="text-[10px] font-bold text-amber-700">Subsidised Grains</span>
+              </div>
+              <p class="text-[11px] text-slate-500">Priority Households below ₹1.5L annual family income</p>
+            </div>
+          </div>
+
+          <!-- NSAP Pension Card -->
+          <div id="card_nsap_pension" class="scheme-card p-3 rounded-xl border border-slate-200 transition bg-white flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-indigo-100 text-indigo-800 flex items-center justify-center text-base flex-shrink-0">
+              <i class="fa-solid fa-person-walking-with-cane"></i>
+            </div>
+            <div class="flex-grow">
+              <div class="flex items-center justify-between">
+                <p class="text-xs font-bold text-slate-800">IGNOAPS Old Age Pension</p>
+                <span class="text-[10px] font-bold text-indigo-700">Monthly Pension</span>
+              </div>
+              <p class="text-[11px] text-slate-500">For senior citizens aged 60+ belonging to BPL households</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT PANEL: TRANSCRIPT & LIVE CASE PROGRESS (col-span-7) -->
+    <div class="lg:col-span-7 flex flex-col space-y-4">
+      
+      <!-- Live Case Summary & Progress Card (Fills as slots are collected) -->
+      <div class="bg-white/80 backdrop-blur-md border border-slate-200/80 rounded-2xl shadow-sm p-4">
+        <div class="flex items-center justify-between mb-2 pb-2 border-b border-slate-100">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-clipboard-check text-emerald-700"></i>
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-700">Active Case Assessment Summary</h4>
+          </div>
+          <span id="activeSchemePill" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-600">
+            Awaiting Scheme
+          </span>
+        </div>
+
+        <!-- Slot Badges Grid -->
+        <div id="caseSummarySlots" class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px]">
+          <div class="bg-slate-50 p-2 rounded-lg border border-slate-200/60">
+            <span class="text-[10px] text-slate-400 block font-medium">Scheme</span>
+            <span id="summaryScheme" class="font-bold text-slate-700">—</span>
+          </div>
+          <div class="bg-slate-50 p-2 rounded-lg border border-slate-200/60">
+            <span class="text-[10px] text-slate-400 block font-medium">Landholding / Age</span>
+            <span id="summaryPrimary" class="font-bold text-slate-700">—</span>
+          </div>
+          <div class="bg-slate-50 p-2 rounded-lg border border-slate-200/60">
+            <span class="text-[10px] text-slate-400 block font-medium">Income / BPL</span>
+            <span id="summarySecondary" class="font-bold text-slate-700">—</span>
+          </div>
+          <div class="bg-slate-50 p-2 rounded-lg border border-slate-200/60">
+            <span class="text-[10px] text-slate-400 block font-medium">Govt / Tax Exclusion</span>
+            <span id="summaryExclusion" class="font-bold text-slate-700">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Conversation Chat Box -->
+      <div id="chatBox" class="bg-white/90 backdrop-blur-md border border-slate-200/80 rounded-2xl shadow-sm p-4 sm:p-5 h-[420px] overflow-y-auto space-y-4" aria-live="polite">
+        <!-- Agent Greeting Bubble injected here -->
+      </div>
+
+      <!-- "Try Saying..." Suggestion Chips Row -->
+      <div class="bg-white/80 backdrop-blur-md border border-slate-200/80 rounded-2xl shadow-sm p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <span class="text-[11px] font-bold text-slate-500 flex items-center gap-1.5 flex-shrink-0">
+          <i class="fa-regular fa-lightbulb text-amber-500"></i> <span id="trySayingLabel">Try saying:</span>
+        </span>
+        <div id="suggestionChips" class="flex flex-wrap items-center gap-1.5 flex-grow">
+          <!-- Dynamic suggestion chips inserted via JS -->
+        </div>
+      </div>
+
+      <!-- Telemetry Latency Bar -->
+      <div class="flex items-center justify-between text-[11px] text-slate-400 px-2">
+        <span><i class="fa-solid fa-microchip text-slate-300"></i> Gnani Prisma v3.0 & Timbre v2.5</span>
+        <span id="latencyDetails" class="hidden">Turn Latency: <b id="latVal" class="text-slate-600">0.0s</b></span>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="w-full bg-white border-t border-slate-200 py-3.5 px-6 text-center text-xs text-slate-500">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+      <p>Powered by <b>Gnani AI Prisma STT & Timbre v2.5 TTS</b> • Great Indian AI Challenge</p>
+      <p class="text-slate-400 text-[11px]">Privacy Guaranteed: No demographic identifiers (Aadhaar/names) stored. Zero LLM hallucinations.</p>
+    </div>
+  </footer>
+
+  <script src="/static/recorder.js"></script>
+</body>
+</html>
