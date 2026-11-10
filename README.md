@@ -20,7 +20,7 @@
 
 **What's next.** Real phone numbers through Gnani's telephony platform (the webhook path is designed), state-specific rules, more schemes, WhatsApp voice notes.
 
-**Try it:** [http://localhost:8000](http://localhost:8000) · [2-minute demo video](docs/DEMO_SCRIPT.md) · `docker compose up`  
+**Try it:** [2-minute demo video](https://drive.google.com/file/d/1Ye-fAutFF9eZlu9gg6UxjK1n_Ea93ZWC/view?usp=sharing) · `docker compose up`  
 Built solo by Md Altamashzzama, NIT Hamirpur, for the Gnani Great Indian AI Internship Challenge.
 
 ---
