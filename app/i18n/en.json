@@ -57,5 +57,6 @@
     "next_steps": "Next Step:",
     "helpline": "Official Helpline:"
   },
+  "followup_prompt": "You can ask for required documents, how to apply, or the helpline.",
   "stop_commands": ["stop", "pause", "wait", "hold on", "cancel", "bye", "goodbye", "end call"]
 }

@@ -184,8 +184,8 @@ class DialogueManager:
         # If early disqualification triggered: Short 2-sentence verdict + stay in FOLLOWUP
         if eval_res["verdict"] == "NOT_ELIGIBLE":
             msg = f"{i18n['verdicts']['NOT_ELIGIBLE']} {eval_res['reason']}"
-            followup_offer = i18n.get("followup_prompt", "आप आवश्यक दस्तावेज़ या हेल्पलाइन के बारे में पूछ सकते हैं।")
-            full_reply = f"{msg} {followup_offer}"
+            followup_offer = i18n.get("followup_prompt", "")
+            full_reply = f"{msg} {followup_offer}".strip()
             return (full_reply, "FOLLOWUP", scheme_id, collected_slots, False, eval_res)
 
         # Find next missing slot
@@ -200,6 +200,6 @@ class DialogueManager:
         final_verdict = eval_res["verdict"]
         verdict_intro = i18n["verdicts"].get(final_verdict, "")
         reason = eval_res["reason"]
-        followup_offer = i18n.get("followup_prompt", "आप आवश्यक दस्तावेज़, आवेदन प्रक्रिया या हेल्पलाइन पूछ सकते हैं।")
-        full_reply = f"{verdict_intro} {reason} {followup_offer}"
+        followup_offer = i18n.get("followup_prompt", "")
+        full_reply = f"{verdict_intro} {reason} {followup_offer}".strip()
         return (full_reply, "FOLLOWUP", scheme_id, collected_slots, False, eval_res)
